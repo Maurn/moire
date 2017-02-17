@@ -31,8 +31,8 @@ public class Sketch extends PApplet {
         float interval = (2 * PI) / discs.size();
         PVector center = new PVector(width / 2, height / 2);
         PVector target = new PVector(-1, -1);
-        target.setMag(sin(frameCount*0.1f)*100);
-        target.rotate(noise(frameCount*0.01f));
+        target.setMag(PVector.sub(new PVector(mouseX, mouseY), center).mag()*0.3f);
+        target.rotate(atan2(mouseY-height/2, mouseX-width/2));
         for (Disc disc : discs) {
             target.rotate(r);
             PVector loc = PVector.add(center, target);
@@ -42,6 +42,6 @@ public class Sketch extends PApplet {
             disc.display();
         }
 
-        text(frameRate, 100, 100);
+        text(frameRate, 50,50);
     }
 }

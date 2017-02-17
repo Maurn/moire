@@ -1,4 +1,6 @@
 import processing.core.PApplet;
+import processing.core.PConstants;
+import processing.core.PShape;
 import processing.core.PVector;
 
 /**
@@ -7,14 +9,19 @@ import processing.core.PVector;
 public class Disc {
     private PApplet parent;
     private PVector location;
-    private float radius;
-    private int nCircles;
+
+    private PShape shape;
 
     public Disc(PApplet parent, PVector location, float radius, int nCircles) {
         this.parent = parent;
         this.location = location;
-        this.radius = radius;
-        this.nCircles = nCircles;
+
+        shape = parent.createShape(PConstants.GROUP);
+
+        for (int i = 1; i <= nCircles; i++) {
+            float r = radius - 40 * i;
+            shape.addChild(parent.createShape(PConstants.ELLIPSE, 0, 0, r, r));
+        }
     }
 
     public void setLocation(PVector location) {
@@ -22,11 +29,9 @@ public class Disc {
     }
 
     public void display() {
-        parent.colorMode(parent.HSB);
-        for (int i = 1; i <= nCircles; i++) {
-            parent.stroke(parent.map(i,0,nCircles,50,150),255,255);
-            float r = radius - 40 * i;
-            parent.ellipse(location.x, location.y, r, r);
-        }
+        parent.pushMatrix();
+        parent.translate(location.x, location.y);
+        parent.shape(this.shape);
+        parent.popMatrix();
     }
 }
