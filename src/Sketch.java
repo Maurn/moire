@@ -14,6 +14,7 @@ public class Sketch extends PApplet {
 
     public void settings() {
         fullScreen(2);
+        noSmooth();
     }
 
     public void setup() {
@@ -22,7 +23,7 @@ public class Sketch extends PApplet {
         strokeWeight(3);
 
         discs = new ArrayList<>();
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 16; i++) {
             discs.add(new Disc(this, new PVector(width / 2, height / 2), 500, 20));
         }
 
